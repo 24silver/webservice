@@ -1,27 +1,29 @@
 const predictClassification = require('../services/inferenceService');
 const crypto = require('crypto');
-const storeData = require('../services/storeData');
+
 
 async function postPredictHandler(request, h) {
   const { image } = request.payload;
   const { model } = request.server.app;
 
-  const { confidenceScore, label, suggestion } = await predictClassification(model, image);
+  const { confidenceScore, label, nama, bahan, benefit, usage } = await predictClassification(model, image);
   const id = crypto.randomUUID();
-  const createdAt = new Date().toISOString();
+  // const createdAt = new Date().toISOString();
 
   const data = {
     "id": id,
     "result": label,
-    "suggestion": suggestion,
-    "createdAt": createdAt
+    'nama' : nama, 
+    'bahan' : bahan , 
+    'benefit': benefit, 
+    'usage' : usage
   }
 
-  await storeData(id,data);
+ 
 
   const response = h.response({
     status: 'success',
-    message: 'Model is predicted successfully',
+    message: 'gambar dapat diproses',
     data
   })
   response.code(201);

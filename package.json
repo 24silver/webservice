@@ -1,5 +1,5 @@
 {
-  "name": "serta-mulia",
+  "name": "capstone-web-service",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -12,9 +12,12 @@
   "license": "ISC",
   "dependencies": {
     "@google-cloud/firestore": "^7.1.0",
+    "@hapi/basic": "^7.0.2",
     "@hapi/hapi": "^21.3.2",
-    "@tensorflow/tfjs-node": "^4.14.0",
-    "dotenv": "^16.3.1"
+    "@tensorflow/tfjs-node": "^4.20.0",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.3.1",
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"

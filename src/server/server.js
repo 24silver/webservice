@@ -1,21 +1,24 @@
 require('dotenv').config();
 
+const Bcrypt = require('bcrypt');
 const Hapi = require('@hapi/hapi');
 const routes = require('../server/routes');
 const loadModel = require('../services/loadModel');
 const InputError = require('../exceptions/InputError');
+const mysql = require('mysql')
+const util = require('util');
 
 (async () => {
     const server = Hapi.server({
         port: 3000,
-        host: '0.0.0.0',
+        host: 'localhost',
         routes: {
             cors: {
               origin: ['*'],
             },
         },
     });
-
+    
     const model = await loadModel();
     server.app.model = model;
 
@@ -23,7 +26,6 @@ const InputError = require('../exceptions/InputError');
 
     server.ext('onPreResponse', function (request, h) {
         const response = request.response;
-
         if (response instanceof InputError) {
             const newResponse = h.response({
                 status: 'fail',

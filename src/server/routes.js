@@ -1,4 +1,8 @@
 const postPredictHandler = require('../server/handler');
+const mysql = require('mysql')
+
+
+
 
 const routes = [
   {
@@ -8,11 +12,10 @@ const routes = [
     options: {
       payload: {
         allow: 'multipart/form-data',
-        multipart: true,
-        maxBytes: 1000000
+        multipart: true
       }
     }
-  }
+  },
 ]
 
 module.exports = routes;
