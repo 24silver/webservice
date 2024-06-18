@@ -22,7 +22,8 @@ Method: POST
     "email": "johndoe@mail.com",
     "name": "John Doe",
     "password": "secret",
-    "role": "USER" // Optional
+    "role": "USER", // Optional
+    "gender": "MALE"
 }
 ```
 
@@ -173,7 +174,9 @@ authorization: Bearer token
     "user": {
         "id": "4336b8ea-6062-4b84-82fd-ba97ca64a0ae",
         "email": "johndoe@test.ad",
-        "name": "john"
+        "name": "john",
+        "gender": "MALE",
+        "image": "https://storage.googleapis.com/assets-webskinenthusiast/profile-image/user_default.png"
     }
 }
 ```
@@ -208,17 +211,14 @@ authorization: Bearer token
 
 #### Request Body :
 
-````json
+```json
 {
     "email": "johnupdatename@test.ad", // optional
     "name": "John Updated", // optional
-    "role": "USER", // optional
-    "password": "12345678" // optional
+    "password": "12345678", // optional
+    "gender": "FEMALE"
 }
-
-##### header :
-
-authorization: Bearer token
+```
 
 #### Response Body (Success) :
 
@@ -231,11 +231,12 @@ authorization: Bearer token
     "data": {
         "id": "e0b76d49-c29f-4132-a92e-809d1b5a6483",
         "email": "admin@test.ad",
-        "name": "Fikri Updated",
-        "password": "12345678"
+        "name": "Hue",
+        "gender": "FEMALE",
+        "image_url": "https://storage.googleapis.com/assets-webskinenthusiast/profile-image/user_default.png"
     }
 }
-````
+```
 
 #### Response Body (Failed) :
 
@@ -261,6 +262,74 @@ authorization: Bearer token
 {
     "status": "fail",
     "message": "Email already exist"
+}
+```
+
+## Upload Image User Data
+
+Endpoint : /upload/image
+
+Method: POST
+
+##### header :
+
+authorization: Bearer token
+
+#### Request Body :
+
+```json
+{
+    "image": file.jpeg
+}
+```
+
+#### Response Body (Success) :
+
+200
+
+```json
+{
+    "message": "success update data",
+    "status": "success",
+    "data": {
+        "image_url": "https://storage.googleapis.com/assets-webskinenthusiast/profile-image/user_default.png"
+    }
+}
+```
+
+#### Response Body (Failed) :
+
+400
+
+```json
+{
+    "status": "fail",
+    "message": "Invalid file type. Only images are allowed."
+}
+```
+
+401
+
+```json
+{
+    "status": "fail",
+    "message": "Access denied. Please provide valid authentication credentials."
+}
+```
+
+```json
+{
+    "status": "fail",
+    "message": "Token is expired"
+}
+```
+
+415
+
+```json
+{
+    "status": "fail",
+    "message": "Unsupported Media Type"
 }
 ```
 

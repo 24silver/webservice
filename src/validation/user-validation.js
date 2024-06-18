@@ -9,6 +9,7 @@ const registerUserValidation = Joi.object({
     name: Joi.string().min(3).max(100).required(),
     role: Joi.string().valid('USER', 'ADMIN').optional(),
     password: Joi.string().min(8).max(100).required(),
+    gender: Joi.string().valid('MALE', 'FEMALE').required(),
 });
 
 const loginUserValidation = Joi.object({
@@ -22,6 +23,7 @@ const updateUserValidation = Joi.object({
     name: Joi.string().min(3).max(100).optional(),
     role: Joi.string().valid('USER', 'ADMIN').optional(),
     password: Joi.string().min(8).max(100).optional(),
+    gender: Joi.string().valid('MALE', 'FEMALE').optional(),
 });
 
 module.exports = {

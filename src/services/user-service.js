@@ -30,8 +30,10 @@ async function register(data) {
     // encrypt password
     user.password = await bcrypt.hash(user.password, 10);
 
-    // create user
+    user.image_url =
+        'https://storage.googleapis.com/assets-webskinenthusiast/profile-image/user_default.png';
 
+    // create user
     return prismaClient.user.create({
         data: user,
         select: {
@@ -74,7 +76,10 @@ async function login(data) {
     }
 
     // create token
-    const payload = { sub: user.id, email: user.email, name: user.name };
+    const payload = {
+        sub: user.id,
+        email: user.email,
+    };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
         expiresIn: '1h',
@@ -83,6 +88,27 @@ async function login(data) {
     return {
         token,
     };
+}
+
+async function get(id, email) {
+    const isUserExist = await prismaClient.user.count({ where: { id } });
+
+    if (!isUserExist) {
+        throw new ResponseError('User not exist', 404);
+    }
+
+    return prismaClient.user.findFirst({
+        where: {
+            email: email,
+        },
+        select: {
+            id: true,
+            email: true,
+            gender: true,
+            image_url: true,
+            name: true,
+        },
+    });
 }
 
 async function update(data) {
@@ -114,7 +140,7 @@ async function update(data) {
     }
     return prismaClient.user.update({
         data: {
-            ...data,
+            ...user,
         },
         where: {
             id: user.id,
@@ -123,9 +149,10 @@ async function update(data) {
             id: true,
             email: true,
             name: true,
-            password: true,
+            gender: true,
+            image_url: true,
         },
     });
 }
 
-module.exports = { register, login, update };
+module.exports = { register, login, get, update };

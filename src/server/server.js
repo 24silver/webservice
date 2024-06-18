@@ -22,6 +22,7 @@ const scheme = require('./authentication-schema');
         },
     });
 
+    // TODO Uncomment after develop
     // const model = await loadModel();
     // server.app.model = model;
 

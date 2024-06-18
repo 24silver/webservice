@@ -1,6 +1,7 @@
 const mysql = require('mysql');
 const postPredictHandler = require('../handler/handler');
 const userHandler = require('../handler/user-handler');
+const uploadHandler = require('../handler/upload-handler');
 
 const routes = [
     {
@@ -46,6 +47,23 @@ const routes = [
         method: 'DELETE',
         handler: userHandler.logout,
         options: {
+            auth: 'default',
+        },
+    },
+
+    // TODO test upload image
+
+    {
+        path: '/upload/image',
+        method: 'POST',
+        handler: uploadHandler.upload,
+        options: {
+            payload: {
+                output: 'stream',
+                allow: 'multipart/form-data',
+                multipart: true,
+                maxBytes: 5 * 1024 * 1024,
+            },
             auth: 'default',
         },
     },
