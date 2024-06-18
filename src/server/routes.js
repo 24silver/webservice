@@ -26,6 +26,22 @@ const routes = [
         handler: userHandler.register,
     },
     {
+        path: '/account',
+        method: 'GET',
+        handler: userHandler.getData,
+        options: {
+            auth: 'default',
+        },
+    },
+    {
+        path: '/account',
+        method: 'POST',
+        handler: userHandler.updateData,
+        options: {
+            auth: 'default',
+        },
+    },
+    {
         path: '/logout',
         method: 'DELETE',
         handler: userHandler.logout,
@@ -38,7 +54,12 @@ const routes = [
         method: '*',
         path: '/{any*}',
         handler: function (request, h) {
-            return h.response('404 Error! Page Not Found!').code(404);
+            return h
+                .response({
+                    message: 'failed',
+                    status: '404 Error! Page Not Found!',
+                })
+                .code(404);
         },
     },
 ];

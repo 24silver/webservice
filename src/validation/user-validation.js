@@ -16,4 +16,16 @@ const loginUserValidation = Joi.object({
     password: Joi.string().min(8).max(100).required(),
 });
 
-module.exports = { registerUserValidation, loginUserValidation };
+const updateUserValidation = Joi.object({
+    id: Joi.string().required(),
+    email: Joi.string().email().optional(),
+    name: Joi.string().min(3).max(100).optional(),
+    role: Joi.string().valid('USER', 'ADMIN').optional(),
+    password: Joi.string().min(8).max(100).optional(),
+});
+
+module.exports = {
+    registerUserValidation,
+    loginUserValidation,
+    updateUserValidation,
+};
