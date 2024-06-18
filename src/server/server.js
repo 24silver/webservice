@@ -23,8 +23,8 @@ const scheme = require('./authentication-schema');
         },
     });
 
-    // const model = await loadModel();
-    // server.app.model = model;
+    const model = await loadModel();
+    server.app.model = model;
 
     server.auth.scheme('custom', scheme);
     server.auth.strategy('default', 'custom');
