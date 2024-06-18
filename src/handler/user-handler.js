@@ -37,4 +37,40 @@ const logout = async (request, h) => {
     return response;
 };
 
-module.exports = { register, login, logout };
+const getData = async (request, h) => {
+    const { token } = request.auth.credentials;
+
+    const user = {
+        id: token.sub,
+        email: token.email,
+        name: token.name,
+    };
+
+    const response = h.response({
+        message: 'success get data',
+        status: 'success',
+        user,
+    });
+    response.code(200);
+    return response;
+};
+
+const updateData = async (request, h) => {
+    const { token } = request.auth.credentials;
+    const userDataRequest = request.payload;
+    // console.log(token);
+    const data = await userService.update({
+        id: token.sub,
+        ...userDataRequest,
+    });
+
+    const response = h.response({
+        message: 'success update data',
+        status: 'success',
+        data,
+    });
+    response.code(200);
+    return response;
+};
+
+module.exports = { register, login, logout, getData, updateData };

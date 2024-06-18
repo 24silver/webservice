@@ -11,7 +11,9 @@ http://localhost:3000/
 
 ## Register
 
-Endpoint : POST /register
+Endpoint : /register
+
+Method: POST
 
 #### Request Body :
 
@@ -62,7 +64,9 @@ Endpoint : POST /register
 
 ## Login
 
-Endpoint : POST /login
+Endpoint : /login
+
+Method: POST
 
 #### Request Body :
 
@@ -106,7 +110,9 @@ authorization: Bearer token
 
 ## Logout
 
-Endpoint : DELETE /logout
+Endpoint : /logout
+
+Method: DELETE
 
 #### Request Body :
 
@@ -144,9 +150,125 @@ authorization: Bearer token
 }
 ```
 
+## Get User Data
+
+Endpoint : /account
+
+Method: GET
+
+#### Request Body : -
+
+##### header :
+
+authorization: Bearer token
+
+#### Response Body (Success) :
+
+200
+
+```json
+{
+    "message": "success get data",
+    "status": "success",
+    "user": {
+        "id": "4336b8ea-6062-4b84-82fd-ba97ca64a0ae",
+        "email": "johndoe@test.ad",
+        "name": "john"
+    }
+}
+```
+
+#### Response Body (Failed) :
+
+401
+
+```json
+{
+    "status": "fail",
+    "message": "Access denied. Please provide valid authentication credentials."
+}
+```
+
+```json
+{
+    "status": "fail",
+    "message": "Token is expired"
+}
+```
+
+## Update User Data
+
+Endpoint : /account
+
+Method: POST
+
+##### header :
+
+authorization: Bearer token
+
+#### Request Body :
+
+````json
+{
+    "email": "johnupdatename@test.ad", // optional
+    "name": "John Updated", // optional
+    "role": "USER", // optional
+    "password": "12345678" // optional
+}
+
+##### header :
+
+authorization: Bearer token
+
+#### Response Body (Success) :
+
+200
+
+```json
+{
+    "message": "success update data",
+    "status": "success",
+    "data": {
+        "id": "e0b76d49-c29f-4132-a92e-809d1b5a6483",
+        "email": "admin@test.ad",
+        "name": "Fikri Updated",
+        "password": "12345678"
+    }
+}
+````
+
+#### Response Body (Failed) :
+
+401
+
+```json
+{
+    "status": "fail",
+    "message": "Access denied. Please provide valid authentication credentials."
+}
+```
+
+```json
+{
+    "status": "fail",
+    "message": "Token is expired"
+}
+```
+
+409
+
+```json
+{
+    "status": "fail",
+    "message": "Email already exist"
+}
+```
+
 ## Predict
 
-Endpoint : POST /predict
+Endpoint : /predict
+
+Method: POST
 
 #### Request Body :
 
@@ -156,7 +278,7 @@ authorization: Bearer token
 
 ```json
 {
-    "image": image
+    "image": image.jpg
 }
 ```
 

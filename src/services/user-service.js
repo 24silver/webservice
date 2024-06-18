@@ -6,6 +6,7 @@ const validate = require('../validation/validate.js');
 const {
     registerUserValidation,
     loginUserValidation,
+    updateUserValidation,
 } = require('../validation/user-validation.js');
 const ResponseError = require('../exceptions/ResponseError.js');
 
@@ -73,10 +74,10 @@ async function login(data) {
     }
 
     // create token
-    const payload = { sub: user.id, email: user.email };
+    const payload = { sub: user.id, email: user.email, name: user.name };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: '5m',
+        expiresIn: '1h',
     });
 
     return {
@@ -84,4 +85,47 @@ async function login(data) {
     };
 }
 
-module.exports = { register, login };
+async function update(data) {
+    const user = validate(updateUserValidation, data);
+    const userData = await prismaClient.user.count({
+        where: {
+            id: user.id,
+        },
+    });
+
+    if (!userData) {
+        throw new ResponseError('User is not found', 404);
+    }
+
+    if (user?.email) {
+        const isEmailExist = await prismaClient.user.count({
+            where: {
+                email: user.email,
+            },
+        });
+
+        if (isEmailExist === 1) {
+            throw new ResponseError('Email already exist', 409);
+        }
+    }
+
+    if (user?.password) {
+        user.password = await bcrypt.hash(user.password, 10);
+    }
+    return prismaClient.user.update({
+        data: {
+            ...data,
+        },
+        where: {
+            id: user.id,
+        },
+        select: {
+            id: true,
+            email: true,
+            name: true,
+            password: true,
+        },
+    });
+}
+
+module.exports = { register, login, update };

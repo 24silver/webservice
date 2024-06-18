@@ -1,29 +1,29 @@
 {
-  "name": "capstone-web-service",
-  "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon ./src/server/server.js",
-    "start": "node ./src/server/server.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@google-cloud/firestore": "^7.1.0",
-    "@hapi/basic": "^7.0.2",
-    "@hapi/hapi": "^21.3.2",
-    "@prisma/client": "^5.15.0",
-    "@tensorflow/tfjs-node": "^4.20.0",
-    "bcrypt": "^5.1.1",
-    "dotenv": "^16.3.1",
-    "joi": "^17.13.1",
-    "jsonwebtoken": "^9.0.2",
-    "mysql": "^2.18.1"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.2",
-    "prisma": "^5.15.0"
-  }
+    "name": "capstone-web-service",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start:dev": "nodemon ./src/server/server.js",
+        "start": "NODE_ENV=production node ./src/server/server.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@google-cloud/firestore": "^7.1.0",
+        "@hapi/basic": "^7.0.2",
+        "@hapi/hapi": "^21.3.2",
+        "@prisma/client": "^5.15.0",
+        "@tensorflow/tfjs-node": "^4.20.0",
+        "bcrypt": "^5.1.1",
+        "dotenv": "^16.3.1",
+        "joi": "^17.13.1",
+        "jsonwebtoken": "^9.0.2",
+        "mysql": "^2.18.1"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.2",
+        "prisma": "^5.15.0"
+    }
 }

@@ -13,8 +13,8 @@ const scheme = require('./authentication-schema');
 
 (async () => {
     const server = Hapi.server({
-        port: 3000,
-        host: 'localhost',
+        port: process.env.PORT || 3000,
+        host: process.env.NODE_ENV !== 'production' ? 'localhost' : '0.0.0.0',
         routes: {
             cors: {
                 origin: ['*'],
@@ -22,8 +22,8 @@ const scheme = require('./authentication-schema');
         },
     });
 
-    const model = await loadModel();
-    server.app.model = model;
+    // const model = await loadModel();
+    // server.app.model = model;
 
     server.auth.scheme('custom', scheme);
     server.auth.strategy('default', 'custom');
