@@ -7,7 +7,7 @@ Learning Dengan Google Cloud.
 
 ### Host
 
-http://localhost:3000/
+https://bangkit-capstone-425206.et.r.appspot.com/
 
 ## Register
 
