@@ -40,16 +40,14 @@ const logout = async (request, h) => {
 const getData = async (request, h) => {
     const { token } = request.auth.credentials;
 
-    const user = {
-        id: token.sub,
-        email: token.email,
-        name: token.name,
-    };
+    const result = await userService.get(token.sub, token.email);
 
     const response = h.response({
         message: 'success get data',
         status: 'success',
-        user,
+        user: {
+            ...result,
+        },
     });
     response.code(200);
     return response;
@@ -70,6 +68,7 @@ const updateData = async (request, h) => {
         data,
     });
     response.code(200);
+
     return response;
 };
 
