@@ -1,4 +1,18 @@
-# API SPESIFICATION DOCUMENTATION
+# API SPECIFICATION DOCUMENTATION
+
+### Prerequisite
+Sebelum deploy, buat 2 file berikut
+
+#### .env
+```
+MODEL_URL=
+DATABASE_URL=
+JWT_SECRET=
+HOST=
+PORT=
+```
+#### serviceaccount.json
+yang berisi key dari service account untuk upload ke gcp bucket
 
 ### Host
 
